@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Sản Phẩm - Tạp Hóa Di Gái</title>
+    <link rel="stylesheet" href="hanghoa.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo">
+            <img src="./logo.png" alt="Logo Tạp Hóa">
+        </div>
+        <div class="user-menu" onclick="toggleUserDropdown()">
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-item">Đăng xuất</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html">Trang Chủ</a>
+        <a href="TaoHD.html">Bán Hàng</a>
+        <a href="dathang.html">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html" class="active">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>    
+        
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+
+        <a href="ncc.html" > <u>Nhà Cung Cấp</u></a>
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div> 
+    </nav>
+
+    <div class="container">
+        <div class="filter-bar">
+            <div class="search-box wide-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Tìm theo tên hàng hóa" oninput="handleSearchInput()"> 
+            </div>
+            <button class="btn-add" onclick="openAddModal()">
+                 Thêm hàng hóa
+            </button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Mã hàng</th>
+                        
+                        <th>Tên hàng</th>
+                        <th>Loại hàng</th>
+                        <th>Đơn vị</th>
+                        <th>Số lượng</th>
+                        <th></th> </tr>
+                </thead>
+                <tbody id="productTableBody">
+                    <tr>                        
+                        <td><img class="product-thumb" src="https://shafood.vn/uploads/source/hinh-anh-sp-web/banh-keo-ngu-coc/6982.webp" alt="Ảnh SP"></td>
+                        <td>HH0000001</td>
+                        <td>Gạo ST25</td>
+                        <td>Lương thực</td>
+                        <td>Kg</td>
+                        <td>120</td>
+                        <td>
+                            <button class="action-btn edit" onclick="openEditModal('HH0000001')"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="openDeleteConfirm('HH0000001')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td><img class="product-thumb" src="https://vinamart.com.vn/wp-content/uploads/2021/11/Nuoc-mam-nam-ngu-de-nhi-900ml.jpg" alt="Ảnh SP"></td>
+                        <td>HH0000002</td>
+                        <td>Nước mắm Đệ Nhị</td>
+                        <td>Nước chấm</td>
+                        <td>Chai</td>
+                        <td>20</td>
+                        <td>
+                            <button class="action-btn edit" onclick="openEditModal('HH0000002')"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="openDeleteConfirm('HH0000002')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img class="product-thumb" src="https://product.hstatic.net/1000288770/product/dau_an_cao_cap_tuong_an_gold_chai_2_lit_6d2e3781bfe44a62a9a559e9a10161af.jpg" alt="Ảnh SP"></td>
+                        <td>HH0000003</td>
+                        <td>Dầu ăn Gold</td>
+                        <td>Dầu ăn</td>
+                        <td>Chai</td>
+                        <td>36</td>
+                        <td>
+                            <button class="action-btn edit" onclick="openEditModal('HH0000003')"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="openDeleteConfirm('HH0000003')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>                        
+                        <td><img class="product-thumb" src="https://www.fujimarket.vn/resize-image/800x/san-pham/4547894660362-banh-quy-nhan-kem-vani-oreo-original-12-cai-noi-dia-nhat(1).jpg" alt="Ảnh SP"></td>
+                        <td>HH0000004</td>
+                        <td>Bánh Oreo</td>
+                        <td>Bánh kẹo</td>
+                        <td>Gói</td>
+                        <td>27</td>
+                        <td>
+                            <button class="action-btn edit" onclick="openEditModal('HH0000004')"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="openDeleteConfirm('HH0000004')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img class="product-thumb" src="https://www.daesangducviet.com.vn/wp-content/uploads/2019/05/hotdog-500g.png" alt="Ảnh SP"></td>
+                        <td>HH0000005</td>
+                        <td>Xúc xích Đức Việt</td>
+                        <td>Thực phẩm đóng gói</td>
+                        <td>Gói</td>
+                        <td>37</td>
+                        <td>
+                            <button class="action-btn edit" onclick="openEditModal('HH0000005')"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="openDeleteConfirm('HH0000005')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><img class="product-thumb" src="https://u-shop.vn/images/thumbs/0013779_nuoc-rua-chen-sunlight-matcha-tra-nhat-750g.png" alt="Ảnh SP"></td>
+                        <td>HH0000006</td>
+                        <td>Nước rửa chén Sunlight</td>
+                        <td>Hóa phẩm</td>
+                        <td>Chai</td>
+                        <td>29</td>
+                        <td>
+                            <button class="action-btn edit" onclick="openEditModal('HH0000006')"><i class="fas fa-pen"></i></button>
+                            <button class="action-btn delete" onclick="openDeleteConfirm('HH0000006')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="productModal">
+        <div class="modal-content large-content">
+            <div class="modal-header">
+                <h3 id="productModalTitle">Thêm hàng hóa: HH0000001</h3>
+                <span class="close-btn" onclick="closeModal('productModal')">&times;</span>
+            </div>
+            <div class="modal-body product-form">
+                <div class="input-section">
+                    <div class="form-group">
+                        <label>Mã hàng hóa:</label>
+                        <input type="text" id="inpMaHH" value="HH0000001" disabled>
+                    </div>
+                    <div class="form-group">
+                        <label>Tên hàng hóa:</label>
+                        <input type="text" id="inpTenHH" placeholder="Nhập tên hàng hóa">
+                    </div>
+                    <div class="form-group">
+                        <label>Đơn vị:</label>
+                        <input type="text" id="inpDonVi" placeholder="Nhập đơn vị tính">
+                    </div>
+                    <div class="form-group">
+                        <label>Danh mục:</label>
+                        <div class="dropdown-input-group">
+                            <select id="selDanhMuc" onfocus="toggleDropdown(true)" onblur="toggleDropdown(false)">
+                                <option value="" disabled selected hidden>Chọn danh mục</option>
+                                <option value="Bánh kẹo">Bánh kẹo</option>
+                                <option value="Gia vị">Gia vị</option>
+                            </select>
+                            <button class="btn-add-category" onclick="event.preventDefault(); openAddCategoryModal()"><i class="fas fa-plus"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="image-section">
+                    <div class="image-box" id="imageBox" onclick="alert('Mở hộp thoại chọn ảnh')">
+                        <button class="btn-upload-image" id="btnUploadImage">Thêm ảnh</button>
+                        <span id="imagePlaceholder">Mỗi ảnh không quá 2MB</span>
+                        
+                        <img id="productImage" src="https://via.placeholder.com/150x150?text=Product+Image" style="display: none;">
+                        <span class="remove-image" onclick="event.stopPropagation(); removeImage()">&times;</span>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer justify-center">
+                <button class="btn-cancel" onclick="closeModal('productModal')">Hủy</button>
+                <button class="btn-confirm green-btn" onclick="handleSaveProductAction()">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="categoryModal">
+        <div class="modal-content small-content">
+            <div class="modal-header">
+                <h3 id="categoryModalTitle">Thêm danh mục: DM0000002</h3>
+                <span class="close-btn" onclick="closeModal('categoryModal')">&times;</span>
+            </div>
+            <div class="modal-body category-form">
+                <div class="form-group-full">
+                    <label>Mã danh mục:</label>
+                    <input type="text" id="inpMaDM" value="DM0000002" disabled>
+                </div>
+                <div class="form-group-full">
+                    <label>Tên danh mục:</label>
+                    <input type="text" id="inpTenDM" placeholder="Nhập tên danh mục" oninput="handleCategoryNameInput(this.value)">
+                </div>
+            </div>
+            <div class="modal-footer justify-center">
+                <button class="btn-cancel" onclick="closeModal('categoryModal')">Hủy</button>
+                <button class="btn-confirm green-btn" onclick="handleSaveCategoryAction()">Lưu</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content text-center">
+            <div class="icon-warning">!</div>
+            <h3>Bạn có chắc chắn muốn xóa?</h3>
+            <div class="modal-footer justify-center">
+                <button class="btn-cancel" onclick="closeModal('deleteModal')">Hủy</button>
+                <button class="btn-confirm green-btn" onclick="handleDeleteAction()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-popup" id="toastSearchError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Có lỗi trong quá trình tìm kiếm!</div>
+    </div>
+    <div class="toast-popup" id="toastSearchNotFound">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Không tìm thấy hàng hóa phù hợp!</div>
+    </div>
+    <div class="toast-popup" id="toastDuplicateCategory">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Tên danh mục đã tồn tại. <br>Vui lòng nhập lại.</div>
+    </div>
+    <div class="toast-popup" id="toastSaveCategoryError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Có lỗi trong quá trình lưu danh mục.<br>Vui lòng sửa lại sau.</div>
+    </div>
+    <div class="toast-popup success" id="toastAddCategorySuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text">Thêm danh mục thành công!</div>
+    </div>
+    <div class="toast-popup" id="toastSaveProductError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Có lỗi trong quá trình lưu hàng hóa.<br>Vui lòng sửa lại sau.</div>
+    </div>
+    <div class="toast-popup success" id="toastProductSuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text" id="productSuccessText">Thêm hàng hóa thành công!</div>
+    </div>
+    <div class="toast-popup" id="toastDeleteError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Có lỗi trong quá trình xóa hàng hóa.</div>
+    </div>
+    <div class="toast-popup success" id="toastDeleteSuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text">Xóa hàng hóa thành công!</div>
+    </div>
+
+    <script src="hanghoa.js"></script>
+</body>
+</html>

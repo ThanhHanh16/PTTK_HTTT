@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng Nhập</title>
+    <link rel="stylesheet" href="dangnhap.css">
+    </head>
+<body>
+
+    <div class="login-card idle" id="loginCard">
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <div class="form-group">
+            <label>Tên tài khoản *</label>
+            <input type="text" id="username" placeholder="Nhập tài khoản" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>Mật khẩu*</label>
+            <input type="password" id="password" placeholder="Nhập mật khẩu " disabled>
+        </div>
+
+        <div style="text-align: right; margin-bottom: 20px;">
+            <a href="quenmatkhau.html" style="color: #007bff; text-decoration: none; font-weight: bold;">Quên mật khẩu?</a>
+        </div>
+
+        <button class="btn-login" onclick="handleLogin(event)">Đăng nhập</button>
+    </div>
+
+    <div class="overlay" id="errorPopup" onclick="closeError()">
+        <div class="error-box">
+            <div class="icon-error">!</div>
+            <div class="text-error">
+                Đăng nhập không hợp lệ.<br>
+                Vui lòng nhập lại
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isIdle = true;       // Trạng thái chờ ban đầu
+        let loginAttempts = 0;   // Biến đếm số lần đăng nhập
+
+        // 1. SỰ KIỆN CLICK MÀN HÌNH (Đánh thức giao diện)
+        document.addEventListener('click', function() {
+            if (isIdle) {
+                isIdle = false; 
+                const card = document.getElementById('loginCard');
+                const userInp = document.getElementById('username');
+                const passInp = document.getElementById('password');
+
+                // Mở khóa giao diện
+                card.classList.remove('idle');
+                userInp.disabled = false;
+                passInp.disabled = false;
+                
+                // Đổi placeholder và focus
+                userInp.placeholder = "Nhập tên tài khoản";
+                passInp.placeholder = "Nhập mật khẩu";
+                userInp.focus();
+            }
+        });
+
+        // 2. SỰ KIỆN BẤM NÚT ĐĂNG NHẬP
+        function handleLogin(event) {
+            event.stopPropagation(); // Ngăn click lan ra ngoài
+
+            const user = document.getElementById('username').value;
+            const pass = document.getElementById('password').value;
+
+            // Kiểm tra xem đã nhập chưa (nếu rỗng thì không làm gì hoặc báo nhập)
+            if (user !== "" && pass !== "") {
+                
+                // --- LOGIC CHÍNH Ở ĐÂY ---
+                if (loginAttempts === 0) {
+                    // LẦN 1: HIỆN LỖI
+                    document.getElementById('errorPopup').style.display = 'flex';
+                    
+                    // Tăng biến đếm lên để lần sau biết là lần 2
+                    loginAttempts++; 
+                } 
+                else {
+                    // LẦN 2 TRỞ ĐI: THÀNH CÔNG -> QUA MÀN HÌNH 3
+                    window.location.href = "dashboard.html";
+                }
+            }
+        }
+
+        // 3. Tắt popup lỗi
+        function closeError() {
+            document.getElementById('errorPopup').style.display = 'none';
+            // Sau khi tắt lỗi, người dùng đang ở "Màn hình 2" (Form đăng nhập active)
+            // Focus lại vào ô password để nhập lại cho tiện
+            document.getElementById('password').focus(); 
+            document.getElementById('password').value = ""; // Xóa pass cũ đi cho giống thật
+        }
+    </script>
+</body>
+</html>

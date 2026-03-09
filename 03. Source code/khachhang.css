@@ -1,0 +1,252 @@
+:root {
+    --primary: #007bff;
+    --text-dark: #333;
+    --bg-gray: #f2f2f2;
+    --border: #ddd;
+    --danger: #ea4335;
+    --success: #2ecc71;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Arial', sans-serif; }
+body { background-color: #e9ecef; }
+
+/* Header */
+.top-header { background: #f8f9fa; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; }
+
+.logo img { height: 40px; width: auto; object-fit: contain; vertical-align: middle; }
+
+/* === USER MENU DROPDOWN === */
+.user-menu {
+    position: relative; 
+    cursor: pointer;
+    font-weight: 500;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: 0.2s;
+}
+/* Hiệu ứng khi đang mở menu hoặc hover */
+.user-menu:hover .user-info, .user-menu.active .user-info {
+    background-color: #e9ecef; 
+}
+
+/* Menu con (Ẩn mặc định) */
+.user-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    border-radius: 4px;
+    display: none; 
+    z-index: 200;
+    margin-top: 5px;
+    overflow: hidden;
+}
+
+/* Hiển thị khi có class active */
+.user-menu.active .user-dropdown {
+    display: block;
+}
+
+/* Mục Đăng xuất */
+.dropdown-item {
+    padding: 10px 15px;
+    text-align: center;
+    font-weight: bold;
+    color: #333;
+    transition: background 0.2s;
+}
+
+/* Hover vào Đăng xuất -> Màu xanh nhạt (như ảnh) */
+.dropdown-item:hover {
+    background-color: #d1f7ff; 
+    cursor: pointer;
+}
+
+/* Nav */
+.main-nav { background: var(--primary); display: flex; padding: 0 20px; align-items: center; gap: 10px ;}
+.main-nav a { color: white; padding: 15px 40px ; text-decoration: none; font-size: 14px; font-weight: 700; }
+.main-nav a.active, .main-nav a:hover ,.nav-dropdown:hover .dropbtn {   background: rgba(255,255,255,0.2); text-decoration: underline; text-underline-offset: 4px; font-weight: bold;}
+.cart-icon { color: white; margin-left: auto; font-size: 18px; }
+.nav-dropdown {
+    position: relative;
+    display: flex; /* Để giữ chiều cao bằng với các menu khác */
+    align-items: center;
+}
+
+/* 2. Menu con (Ẩn mặc định) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%; /* Hiển thị ngay bên dưới */
+    left: 0;
+    background-color: white;
+    min-width: 180px; /* Độ rộng của menu con */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1000;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* 3. Hiển thị menu khi di chuột vào (Hover) */
+.nav-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* 4. Giữ hiệu ứng sáng màu cho nút chính khi đang hover menu con */
+.nav-dropdown:hover .dropbtn {
+    font-weight: bold;
+}
+
+/* 5. Style cho các link bên trong menu con */
+/* Quan trọng: Cần ghi đè màu chữ trắng của .main-nav a cũ */
+.main-nav .dropdown-content a {
+    color: #333;           /* Chữ màu đen */
+    padding: 12px 16px;    /* Khoảng cách lề */
+    text-decoration: none;
+    display: block;
+    text-align: left;
+    font-weight: normal;   /* Chữ thường, không đậm */
+    border: 1px solid #eee; /* Đường kẻ mờ ngăn cách */
+}
+
+/* 6. Hiệu ứng khi di chuột vào mục con */
+.main-nav .dropdown-content a:hover {
+    background-color: #f1f1f1;
+    border: 1px solid #007bff; /* Đường kẻ mờ ngăn cách */
+
+
+}
+
+/* --- TÙY CHỈNH RIÊNG CHO MENU KHÁCH HÀNG --- */
+
+/* 1. Định dạng chung cho cả 2 mục: Chữ xanh và in đậm */
+.dropdown-content a[href*="khachhang.html"],
+.dropdown-content a[href*="congno.html"] {
+    color: #007bff !important; /* Màu xanh dương (hoặc dùng var(--primary)) */
+    font-weight: bold !important;
+}
+
+/* 2. Mục "QL khách hàng": Nền màu xám */
+.dropdown-content a[href*="khachhang.html"] {
+    background-color: white ; /* Màu xám nhạt giống hình */
+}
+
+/* 3. Mục "Công nợ": Nền màu trắng (mặc định) */
+.dropdown-content a[href*="congno.html"] {
+    background-color: white;
+}
+
+/* 4. Hiệu ứng khi di chuột vào (Hover) */
+/* Giữ nguyên màu xanh nhưng làm nền đậm hơn chút để người dùng biết đang chọn */
+.dropdown-content a[href*="khachhang.html"]:hover,
+.dropdown-content a[href*="congno.html"]:hover {
+    background-color: #dcdcdc; /* Xám đậm hơn khi hover */
+    color: #0056b3 !important; /* Xanh đậm hơn */
+}
+
+/* --- TÙY CHỈNH RIÊNG CHO MENU Sản phẩm  --- */
+
+/* 1. Định dạng chung cho cả 2 mục: Chữ xanh và in đậm */
+.dropdown-content a[href*="hanghoa.html"],
+.dropdown-content a[href*="lohang.html"] {
+    color: #007bff !important; /* Màu xanh dương (hoặc dùng var(--primary)) */
+    font-weight: bold !important;
+}
+
+/* 2. Mục "QL khách hàng": Nền màu xám */
+.dropdown-content a[href*="hanghoa.html"] {
+    background-color: white ; /* Màu xám nhạt giống hình */
+}
+
+/* 3. Mục "Công nợ": Nền màu trắng (mặc định) */
+.dropdown-content a[href*="lohang.html"] {
+    background-color: white;
+}
+
+/* 4. Hiệu ứng khi di chuột vào (Hover) */
+/* Giữ nguyên màu xanh nhưng làm nền đậm hơn chút để người dùng biết đang chọn */
+.dropdown-content a[href*="hanghoa.html"]:hover,
+.dropdown-content a[href*="lohang.html"]:hover {
+    background-color: #dcdcdc; /* Xám đậm hơn khi hover */
+    color: #0056b3 !important; /* Xanh đậm hơn */
+}
+/* Container */
+.container { max-width: 1200px; margin: 20px auto; padding: 0 15px; }
+
+/* Filter Bar */
+.filter-bar { background: white; padding: 15px; border-radius: 5px; display: flex; gap: 10px; margin-bottom: 20px; align-items: center; flex-wrap: wrap; }
+.search-box { position: relative; flex-grow: 1; max-width: 400px; }
+.filter-bar input { padding: 8px 10px 8px 30px; border: 1px solid #ccc; border-radius: 4px; height: 38px; width: 100%; }
+.filter-bar i { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: #888; }
+.btn-search { border: 1px solid var(--primary); color: var(--primary); background: white; padding: 8px 20px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+.btn-add { background: white; color: var(--primary); border: 1px solid var(--primary); padding: 8px 20px; border-radius: 20px; margin-left: auto; cursor: pointer; font-weight: bold; white-space: nowrap; }
+.btn-add:hover, .btn-search:hover { background: #f0f8ff; }
+
+/* Table */
+.table-wrapper { background: white; border-radius: 5px; padding: 10px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 800px; }
+th, td { padding: 12px; text-align: left; border-bottom: 1px solid #eee; font-size: 14px; }
+th { background: #e0e0e0; font-weight: bold; }
+tbody tr:hover {
+    background-color: #f5f5f5; /* Màu nền xám nhạt khi di chuột */
+    cursor: pointer; /* Đổi con trỏ thành dạng pointer */
+    transition: background-color 0.15s ease;
+}
+.badge { padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: bold; }
+/* Màu sắc cho Trạng thái nợ */
+.badge.paid { background-color: var(--success); color: white; }
+.badge.unpaid { background-color: var(--danger); color: white; }
+
+.action-btn { width: 30px; height: 30px; border: none; border-radius: 4px; cursor: pointer; margin-right: 0px; color: white; }
+.action-btn.edit { background: var(--primary); }
+.action-btn.delete { background: white; border: 1px solid var(--primary); color: var(--primary); }
+
+/* Modal */
+.modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; }
+.modal-content { background: #f4f4f4; width: 500px; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.2); position: relative; }
+.modal-header { background: var(--primary); color: white; padding: 15px; display: flex; justify-content: space-between; align-items: center; }
+.close-btn { font-size: 24px; cursor: pointer; }
+.modal-body { padding: 20px; background: #eee; }
+.form-group { display: grid; grid-template-columns: 140px 1fr; margin-bottom: 15px; align-items: center; }
+.form-group label { font-weight: bold; font-size: 14px; }
+.form-group input { padding: 8px; border: 1px solid #ccc; border-radius: 4px; width: 100%; outline: none; }
+/* Input không được nhập (mã khách hàng, trạng thái nợ) */
+.form-group input:disabled { background-color: #dcdcdc; color: #555; cursor: not-allowed; }
+.form-group input:not(:disabled) { background-color: white; } 
+.modal-footer { padding: 15px; display: flex; justify-content: center; gap: 20px; background: #eee; }
+.btn-cancel { background: #dc3545; color: white; border: none; padding: 10px 30px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-confirm { background: #2ecc71; color: white; border: none; padding: 10px 30px; border-radius: 4px; cursor: pointer; font-weight: bold; }
+.btn-save-confirm { background: var(--success); } /* Cho nút Lưu của modal thêm/sửa */
+
+/* Toast - Popup thông báo */
+.toast-popup {
+    position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
+    background: white; padding: 30px; border-radius: 12px; box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    display: none; flex-direction: column; align-items: center; text-align: center;
+    width: 350px; z-index: 2000; animation: fadeIn 0.3s;
+}
+.icon-circle { width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; color: white; margin-bottom: 15px; }
+.error-bg { background: #ff4d4d; }
+
+/* Style cho Toast Success */
+.toast-popup.success { background: #96e6a1; color: #006400; }
+.toast-popup.success .icon-circle { border-color: white; color: white; background: transparent; width: 50px; height: 50px; border-width: 3px; border-style: solid;}
+
+.toast-text { font-size: 18px; font-weight: 500; }
+@keyframes fadeIn { from { opacity: 0; margin-top: -20px; } to { opacity: 1; margin-top: 0; } }
+
+/* Modal Lỗi/Cảnh báo đặc biệt (Giống như popup xóa) */
+.modal-content.text-center { background: white; padding: 30px; width: 400px; text-align: center; }
+.modal-content.text-center .modal-footer { background: white; }
+.icon-warning { width: 60px; height: 60px; background: #ff4d4d; color: white; font-size: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 20px; font-weight: bold; }
+.btn-confirm.agree-delete { background: var(--success); }
+.btn-cancel.cancel-delete { background: var(--danger); }

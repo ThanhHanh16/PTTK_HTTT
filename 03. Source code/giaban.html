@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Giá Bán - Tạp Hóa Di Gái</title>
+    <link rel="stylesheet" href="GiaBan.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo">
+            <img src="./logo.png" alt="Logo Tạp Hóa">
+        </div>
+        
+        <div class="user-menu" onclick="toggleUserDropdown()">
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-item">Đăng xuất</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html">Trang Chủ</a>
+        <a href="TaoHD.html">Bán Hàng</a>
+        <a href="dathang.html">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>    
+        
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html" class="active">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+
+        <a href="ncc.html" > <u>Nhà Cung Cấp</u></a>
+        <div class="cart-icon"><i class="fas fa-shopping-cart"></i></div>
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div> 
+    </nav>
+
+    <div class="container">
+        <div class="filter-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm theo tên mức giá" onkeypress="if(event.key === 'Enter') handleSearch()">
+            </div>
+            <button class="btn-add" onclick="openAddModal()">+ Thêm mức giá</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 25%;">Mã giá bán</th>
+                        <th style="width: 25%;">Mã hàng hóa</th>
+                        <th style="width: 15%;">Tên hàng hóa</th>
+                        <th style="width: 15%;">Gía bán</th>
+                        <th style="width: 65%;">Ngày áp dụng</th>
+                        <th style="width: 10%; text-align: center;">Xóa</th>
+                    </tr>
+                </thead>
+                <tbody id="giaBanTableBody">
+                    <tr>
+                        <td>GB0000001</td>
+                        <td>GB0000001</td>
+                        <td>Sữa Vinamilk</td>
+                        <td>10000</td>
+                        <td>23/06/2025</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm('MG001', 'no_products')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>GB0000001</td>
+                        <td>GB0000001</td>
+                        <td>Sữa Vinamilk</td>
+                        <td>10000</td>
+                        <td>23/06/2025</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm('MG002', 'has_products')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td>GB0000001</td>
+                        <td>GB0000001</td>
+                        <td>Sữa Vinamilk</td>
+                        <td>10000</td>
+                        <td>23/06/2025</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm('MG003', 'no_products')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>GB0000001</td>
+                        <td>GB0000001</td>
+                        <td>Sữa Vinamilk</td>
+                        <td>10000</td>
+                        <td>23/06/2025</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm('MG001', 'no_products')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>GB0000001</td>
+                        <td>GB0000001</td>
+                        <td>Sữa Vinamilk</td>
+                        <td>10000</td>
+                        <td>23/06/2025</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm('MG002', 'has_products')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                    <tr>
+                       <td>GB0000001</td>
+                        <td>GB0000001</td>
+                        <td>Sữa Vinamilk</td>
+                        <td>10000</td>
+                        <td>23/06/2025</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm('MG003', 'no_products')"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="formModal">
+        <div class="modal-content form">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <span class="close-btn" onclick="closeModal('formModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Mã mức giá:</label>
+                    <input type="text" id="inpMaMG"> 
+                </div>
+                <div class="form-group">
+                    <label>Tên mức giá:</label>
+                    <input type="text" id="inpTenMG" placeholder="Nhập tên mức giá">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('formModal')">Hủy</button>
+                <button class="btn-confirm btn-save-confirm" id="btnSave" onclick="handleSaveAction()">Lưu</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content text-center">
+            <div class="icon-warning">!</div>
+            <h3>Bạn có muốn xóa mức giá?</h3> 
+            <div class="modal-footer justify-center">
+                <button class="btn-cancel cancel-delete" onclick="closeModal('deleteModal')">Hủy</button>
+                <button class="btn-confirm agree-delete" onclick="handleDeleteAction()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="cannotDeleteModal">
+        <div class="modal-content text-center">
+            <div class="icon-warning">!</div>
+            <h3>Không thể xóa. Hãy chuyển<br>các sản phẩm đang dùng sang mức giá khác</h3> 
+            <div class="modal-footer justify-center">
+                <button class="btn-confirm agree-cannot-delete" onclick="closeModal('cannotDeleteModal')">Đóng</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-popup" id="toastError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text" id="errorText">Có lỗi trong quá trình lưu<br>mức giá. Vui lòng thử lại sau</div> 
+    </div>
+
+    <div class="toast-popup success" id="toastSuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text" id="successText"></div>
+    </div>
+
+    <div class="toast-popup" id="toastSearchNotFound">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Không tìm thấy mức giá<br>nào phù hợp với điều kiện<br>tìm kiếm</div>
+    </div>
+
+    <script src="GiaBan.js"></script>
+</body>
+</html>

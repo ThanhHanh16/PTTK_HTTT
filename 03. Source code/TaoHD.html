@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Hóa Đơn</title>
+    <link rel="stylesheet" href="TaoHD.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+
+            <div style="text-align: left;">
+                <a href="baocao.html" class="back-btn-circle">
+                    <i class="fas fa-arrow-left" style="margin-right: 15px; cursor: pointer;"></i>
+                </a>
+            </div>
+
+            <div class="search-input-wrapper">
+                <i class="fa-solid fa-magnifying-glass" style="color: #CAC4D0; padding: 5px;"></i>
+                <input type="text" class="header-search-input" id="global-item-search" placeholder="Tìm hàng hóa">
+                <i class="fas fa-chevron-down dropdown-arrow"></i> </div>
+
+            <div class="tabs" id="invoice-tabs">
+                <div class="tab active" data-id="1">Hóa đơn 1 <span class="tab-close" data-id="1">x</span></div>
+            </div>
+            <div class="add-tab" id="add-invoice-tab"><i class="fas fa-plus-circle"></i></div>
+
+            <div class="user-info">
+                <i class="fas fa-user-circle"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down" style="margin-left: 5px;"></i>
+            </div>
+        </div>
+
+        <div class="main-content" id="main-content-area">
+            <div class="invoice-content-wrapper" data-id="1">
+                <div class="invoice-body">
+                    <div class="invoice-details" id="invoice-details-1">
+                        <div style="text-align: right; margin-bottom: 10px; font-size: 0.9em; color: #555;">14/12/2025 14:30</div>
+                        <ul class="invoice-items" id="invoice-items-list-1">
+                            </ul>
+                    </div>
+
+                    <div class="payment-info" id="payment-info-1">
+                        <div class="customer-fields">
+                            <div class="customer-input-group">
+                                <div class="customer-input-wrapper">
+                                    <i class="fas fa-user-circle input-icon"></i> 
+                                    <input type="text" class="customer-input" id="customer-name-1" placeholder="Nhập tên khách hàng">
+                                    <i class="fas fa-chevron-down dropdown-arrow-customer"></i> 
+                                </div>
+                                <div class="customer-dropdown" id="customer-name-dropdown-1">
+                                    </div>
+                            </div>
+                            <div class="customer-input-group">
+                                <div class="customer-input-wrapper">
+                                    <i class="fas fa-phone input-icon"></i> 
+                                    <input type="text" class="customer-input" id="customer-phone-1" placeholder="Nhập sđt">
+                                    <i class="fas fa-chevron-down dropdown-arrow-customer"></i> 
+                                </div>
+                            </div>
+                            <div class="customer-input-group">
+                                <div class="customer-input-wrapper">
+                                    <i class="fas fa-map-marker-alt input-icon"></i> 
+                                    <input type="text" class="customer-input" id="customer-address-1" placeholder="Nhập địa chỉ">
+                                    <i class="fas fa-chevron-down dropdown-arrow-customer"></i> 
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="payment-summary">
+                            <div class="summary-row"><span>Tổng tiền hàng</span> <strong id="total-amount-1">105.000</strong></div>
+                            
+                            <div class="summary-row">
+                                <span>Khách trả</span>
+                                <input type="text" id="paid-amount-input-1" value="0" class="paid-amount-input-display">
+                            </div>
+                            
+                            <div class="summary-row"><span>Tiền thừa</span> <strong id="change-amount-1">0</strong></div>
+                        </div>
+
+                        <div class="payment-method">
+                            <div class="radio-group">
+                                <label><input type="radio" name="payment-method-1" value="cash"> Tiền mặt</label>
+                                <label><input type="radio" name="payment-method-1" value="transfer" checked> Chuyển khoản</label>
+                            </div>
+                        </div>
+
+                        <div class="debt-option">
+                            <div class="radio-group">
+                                <label><input type="radio" name="debt-option-1" value="no-debt" checked> Không thêm công nợ</label>
+                                <label><input type="radio" name="debt-option-1" value="add-debt"> Thêm công nợ</label>
+                            </div>
+                        </div>
+
+                        <button class="print-button" id="print-invoice-btn-1">In hóa đơn</button>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </div>
+
+    <div class="search-dropdown" id="global-search-dropdown"></div>
+
+
+    <div class="modal-overlay" id="invalid-quantity-modal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <h3>Số lượng không hợp lệ</h3>
+            <div class="modal-actions">
+                <!-- <button class="modal-btn" onclick="closeModal('invalid-quantity-modal')">Đóng</button> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="error-modal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <h3>Có lỗi xảy ra, vui lòng thử lại</h3>
+            <div class="modal-actions">
+                <button class="modal-btn" onclick="closeModal('error-modal')">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="item-not-found-modal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <h3>Sản phẩm không tồn tại - vui lòng nhập lại</h3>
+            <div class="modal-actions">
+                </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="no-connection-modal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <h3>Mất kết nối</h3>
+            <div class="modal-actions">
+                <!-- <button class="modal-btn" onclick="closeModal('no-connection-modal')">Đóng</button> -->
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="payment-status-modal">
+        <div class="modal-content">
+            <div class="modal-icon"><i class="fas fa-exclamation-circle"></i></div>
+            <h3>Khách đã thanh toán chưa?</h3>
+            <div class="modal-actions">
+                <button class="modal-btn" id="payment-status-no">Chưa</button>
+                <button class="modal-btn" id="payment-status-yes">Rồi</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="TaoHD.js"></script>
+</body>
+</html>

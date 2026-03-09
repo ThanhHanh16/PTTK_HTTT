@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quên Mật Khẩu</title>
+    <link rel="stylesheet" href="dangnhap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-card idle" id="forgotCard">
+        <div style="text-align: left;">
+            <a href="dangnhap.html" class="back-btn-circle">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <h3 style="text-align: left; margin-bottom: 5px; color: #333;">Quên mật khẩu</h3>
+        <p style="text-align: left; color: #888; margin-bottom: 20px; font-size: 14px;">
+            Hãy nhập số điện thoại của bạn để cấp lại mật khẩu
+        </p>
+
+        <div class="form-group">
+            <label>Số điện thoại</label>
+            <input type="text" id="phoneInput" placeholder="Nhập số điện thoại" disabled>
+        </div>
+
+        <button class="btn-login btn-recover" onclick="handleRecover(event)">
+            Khôi phục mật khẩu
+        </button>
+    </div>
+
+    <div class="overlay" id="errorPopup" onclick="closeError()">
+        <div class="error-box">
+            <div class="icon-error orange">!</div>
+            <div class="text-error">
+                Số điện thoại không hợp lệ
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isIdle = true;       // Trạng thái màn hình 2 (Chờ)
+        let attemptCount = 0;    // Biến đếm số lần bấm nút
+
+        // 1. SỰ KIỆN CLICK VÀO MÀN HÌNH (Chuyển Màn 2 -> Màn 3)
+        document.addEventListener('click', function() {
+            if (isIdle) {
+                isIdle = false; // Tắt trạng thái chờ
+                
+                const card = document.getElementById('forgotCard');
+                const phoneInp = document.getElementById('phoneInput');
+
+                // Xóa mờ, làm sáng giao diện
+                card.classList.remove('idle');
+
+                // Mở khóa ô nhập liệu
+                phoneInp.disabled = false;
+                phoneInp.focus(); // Trỏ chuột vào ô nhập luôn
+            }
+        });
+
+        // 2. SỰ KIỆN BẤM NÚT "KHÔI PHỤC MẬT KHẨU"
+        function handleRecover(event) {
+            event.stopPropagation(); // Ngăn sự kiện lan ra ngoài
+
+            const phone = document.getElementById('phoneInput').value;
+
+            // Kiểm tra rỗng
+            if (phone !== "") {
+                if (attemptCount === 0) {
+                    // --- LẦN 1: HIỆN LỖI (Màn hình 4) ---
+                    const popup = document.getElementById('errorPopup');
+                    popup.style.display = 'flex';
+
+                    // Tự động tắt sau 800ms
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                        document.getElementById('phoneInput').focus();
+                        document.getElementById('phoneInput').value = ""; // Xóa nhập lại
+                    }, 800);
+
+                    attemptCount++; // Tăng biến đếm
+                } else {
+                    // --- LẦN 2: THÀNH CÔNG -> QUA MÀN HÌNH 5 (Login) ---
+                    alert("Mật khẩu mới đã được gửi!"); // (Tùy chọn thông báo)
+                    window.location.href = "maOTP.html";
+                }
+            }
+        }
+
+        // Tắt popup khi click
+        function closeError() {
+            document.getElementById('errorPopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

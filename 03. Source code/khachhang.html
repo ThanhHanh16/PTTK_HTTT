@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Khách Hàng - Tạp Hóa Di Gái</title>
+    <link rel="stylesheet" href="khachhang.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo">
+            <img src="logo.png" alt="Logo Tạp Hóa">
+        </div>
+        
+        <div class="user-menu" onclick="toggleUserDropdown()">
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-item">Đăng xuất</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html">Trang Chủ</a>
+        <a href="TaoHD.html">Bán Hàng</a>
+        <a href="dathang.html">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>    
+        
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="active" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+
+        <a href="ncc.html" > <u>Nhà Cung Cấp</u></a>
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="filter-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm theo tên khách hàng">
+            </div>
+            <button class="btn-search" onclick="handleSearch()">Tìm kiếm</button>
+            <button class="btn-add" onclick="openAddModal()">+ Thêm khách hàng</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Mã Khách Hàng</th>
+                        <th style="width: 25%;">Tên Khách Hàng</th>
+                        <th style="width: 15%;">Số Điện Thoại</th>
+                        <th style="width: 25%;">Địa Chỉ</th>
+                        <th style="width: 10%;">Trạng Thái Nợ</th>
+                        <th style="width: 10%;">Tùy Chọn</th>
+                    </tr>
+                </thead>
+                <tbody id="customerTableBody">
+    <tr>
+        <td>KH0000001</td>
+        <td>Nguyễn Văn A</td>
+        <td>0987654321</td>
+        <td>Đà Nẵng</td>
+        <td><span class="badge paid">Đã trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000001', 'Nguyễn Văn A', '0987654321', 'Đà Nẵng', 'Đã trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Đã trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000002</td>
+        <td>Trần Văn B</td>
+        <td>0123456789</td>
+        <td>Hồ Chí Minh</td>
+        <td><span class="badge unpaid">Chưa trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000002', 'Trần Văn B', '0123456789', 'Hồ Chí Minh', 'Chưa trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Chưa trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000003</td>
+        <td>Lê Thị C</td>
+        <td>0369874512</td>
+        <td>Hà Nội</td>
+        <td><span class="badge paid">Đã trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000003', 'Lê Thị C', '0369874512', 'Hà Nội', 'Đã trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Đã trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000004</td>
+        <td>Phạm Văn D</td>
+        <td>0777123456</td>
+        <td>Hải Phòng</td>
+        <td><span class="badge paid">Đã trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000004', 'Phạm Văn D', '0777123456', 'Hải Phòng', 'Đã trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Đã trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000005</td>
+        <td>Hồ Thị E</td>
+        <td>0909654321</td>
+        <td>Cần Thơ</td>
+        <td><span class="badge unpaid">Chưa trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000005', 'Hồ Thị E', '0909654321', 'Cần Thơ', 'Chưa trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Chưa trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000006</td>
+        <td>Bùi Đình F</td>
+        <td>0388998877</td>
+        <td>Huế</td>
+        <td><span class="badge paid">Đã trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000006', 'Bùi Đình F', '0388998877', 'Huế', 'Đã trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Đã trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000007</td>
+        <td>Đặng Ngọc G</td>
+        <td>0912345678</td>
+        <td>Biên Hòa</td>
+        <td><span class="badge unpaid">Chưa trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000007', 'Đặng Ngọc G', '0912345678', 'Biên Hòa', 'Chưa trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Chưa trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000008</td>
+        <td>Võ Trọng H</td>
+        <td>0868112233</td>
+        <td>Vũng Tàu</td>
+        <td><span class="badge paid">Đã trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000008', 'Võ Trọng H', '0868112233', 'Vũng Tàu', 'Đã trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Đã trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000007</td>
+        <td>Đặng Ngọc G</td>
+        <td>0912345678</td>
+        <td>Biên Hòa</td>
+        <td><span class="badge unpaid">Chưa trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000007', 'Đặng Ngọc G', '0912345678', 'Biên Hòa', 'Chưa trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Chưa trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+    <tr>
+        <td>KH0000007</td>
+        <td>Đặng Ngọc G</td>
+        <td>0912345678</td>
+        <td>Biên Hòa</td>
+        <td><span class="badge unpaid">Chưa trả</span></td>
+        <td>
+            <button class="action-btn edit" onclick="openEditModal('KH0000007', 'Đặng Ngọc G', '0912345678', 'Biên Hòa', 'Chưa trả')"><i class="fas fa-pen"></i></button>
+            <button class="action-btn delete" onclick="openDeleteConfirm('Chưa trả')"><i class="fas fa-trash"></i></button>
+        </td>
+    </tr>
+</tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="formModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <span class="close-btn" onclick="closeModal('formModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Mã khách hàng:</label>
+                    <input type="text" id="inpMaKH">
+                </div>
+                <div class="form-group">
+                    <label>Tên khách hàng:</label>
+                    <input type="text" id="inpTenKH">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại:</label>
+                    <input type="text" id="inpSDT">
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ:</label>
+                    <input type="text" id="inpDiaChi">
+                </div>
+                <div class="form-group">
+                    <label>Trạng thái nợ:</label>
+                    <input type="text" id="inpTrangThaiNo" disabled placeholder="Tự cập nhật">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('formModal')">Hủy</button>
+                <button class="btn-confirm btn-save-confirm" id="btnSave" onclick="handleSaveAction()"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content text-center">
+            <div class="icon-warning">!</div>
+            <h3>Bạn có muốn xóa?</h3>
+            <div class="modal-footer justify-center">
+                <button class="btn-cancel cancel-delete" onclick="closeModal('deleteModal')">Hủy</button>
+                <button class="btn-confirm agree-delete" onclick="handleDeleteAction()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="cannotDeleteModal">
+        <div class="modal-content text-center">
+            <div class="icon-warning">!</div>
+            <h3>Khách hàng còn nợ<br>không thể xóa</h3>
+            <div class="modal-footer justify-center">
+                <button class="btn-confirm agree-delete" onclick="closeModal('cannotDeleteModal')">Đóng</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast-popup" id="toastError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text" id="errorText">Có lỗi trong quá trình lưu/xóa<br>khách hàng. Vui lòng thử lại sau.</div>
+    </div>
+    
+    <div class="toast-popup success" id="toastSuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text" id="successText"></div>
+    </div>
+    
+    <div class="toast-popup" id="toastSearchNotFound">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Không tìm thấy khách hàng<br>nào phù hợp với điều kiện<br>tìm kiếm</div>
+    </div>
+
+    <script src="khachhang.js"></script>
+</body>
+</html>

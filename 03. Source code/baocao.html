@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Báo Cáo - Tạp Hóa Di Gái</title>
+    <link rel="stylesheet" href="baocao.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo">
+            <img src="./logo.png" alt="Logo Tạp Hóa">
+        </div>
+        
+        <div class="user-menu" onclick="toggleUserDropdown()">
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-item">Đăng xuất</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html" class="active"> <u>Trang chủ</u></a>
+        <a href="TKHD.html">Bán Hàng</a>
+        <a href="dathang.html">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>          
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+        <a href="ncc.html">Nhà cung cấp</a>
+
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+    </nav>
+
+    <div class="container">
+        
+        <div class="main-report-layout">
+            
+            <div class="left-panel">
+                <h3 class="panel-title">Mối quan tâm</h3>
+                
+                <div class="group-section button-report-list">
+                    <button class="btn-report-quick active" data-report-type="banhang" onclick="selectReportType('banhang', this)">
+                        Bán Hàng
+                    </button>
+                    <button class="btn-report-quick" data-report-type="hanghoa" onclick="selectReportType('hanghoa', this)">
+                        Hàng Hóa
+                    </button>
+                </div>
+
+                <h3 class="panel-title" style="margin-top: 20px;">Thời gian</h3>
+                
+                <div class="group-section date-section">
+                    <div class="date-range-group-merged">
+                        <div class="date-box input-with-icon" onclick="toggleCalendar('calMerged')">
+                            <i class="far fa-calendar-alt"></i>
+                            <input type="text" id="dateRange" placeholder="Ngày bắt đầu - Ngày kết thúc" readonly>
+                            <div class="custom-calendar merged-calendar" id="calMerged">
+                                <div class="cal-header">
+                                    <span onclick="prevMonth('calMerged')"><i class="fas fa-chevron-left"></i></span>
+                                    <span id="monthYearMerged"></span>
+                                    <span onclick="nextMonth('calMerged')"><i class="fas fa-chevron-right"></i></span>
+                                </div>
+                                <div class="cal-weekdays">
+                                    <div>CN</div><div>T2</div><div>T3</div><div>T4</div><div>T5</div><div>T6</div><div>T7</div>
+                                </div>
+                                <div class="cal-days" id="daysMerged"></div>
+                                <div class="cal-footer">
+                                    <button class="btn-confirm-date" onclick="confirmDateRange()">Xác nhận</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="btn-search-report" onclick="loadCustomReport(this)">
+                        Tìm Kiếm
+                    </button>
+                </div>
+                
+                <button class="btn-export" onclick="handleExportReport()">
+                    Xuất báo cáo
+                </button>
+            </div>
+
+            <div class="right-panel">
+                <div class="report-paper"> 
+                    <div class="paper-header">
+                        <div class="page-info">1 / 1</div>
+                        <div class="date-info" id="reportDateInfo">Ngày lập: 14/12/2025</div>
+                        <h3 id="reportTitle" class="report-title">BÁO CÁO BÁN HÀNG</h3>
+                        <div id="reportRangeDate" class="report-range-date">Từ ngày 01/11/2025 đến ngày 25/11/2025</div>
+                    </div>
+
+                    <div id="reportContentContainer" class="report-content-container">
+                        </div>
+                    
+                    <div id="noReportMessage" class="no-report-message">
+                        Vui lòng chọn loại báo cáo (Bán Hàng hoặc Hàng Hóa), khoảng ngày và nhấn **Tìm Kiếm**.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast-popup" id="toastDateError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Ngày bắt đầu không được<br>lớn hơn ngày kết thúc</div> 
+    </div>
+
+    <div class="toast-popup" id="toastError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text" id="errorText">Vui lòng chọn ngày<br>trước khi tìm kiếm.</div> 
+    </div>
+
+    <div class="toast-popup" id="toastExportError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Xuất báo cáo thất bại.<br>Vui lòng thử lại sau</div> 
+    </div>
+
+    <div class="toast-popup success" id="toastExportSuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text">Xuất báo cáo thành công!</div>
+    </div>
+
+    <script src="baocao.js"></script>
+</body>
+</html>

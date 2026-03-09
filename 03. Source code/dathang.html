@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Đặt Hàng</title>
+    <link rel="stylesheet" href="dathang.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo"><img src="./logo.png" alt="Logo"></div>
+        <div class="user-menu" onclick="toggleUserDropdown()">
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown">
+                <div class="dropdown-item">Đăng xuất</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html">Trang Chủ</a>
+        <a href="TaoHD.html">Bán Hàng</a>
+        <a href="dathang.html" class="active">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>    
+        
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+
+        <a href="ncc.html" > <u>Nhà Cung Cấp</u></a>
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div>        
+    </nav>
+
+    <div class="container">
+        <div class="filter-bar">
+            <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Tìm theo mã hóa đơn"></div>
+            <div class="search-box"><i class="fas fa-search"></i><input type="text" placeholder="Tìm theo nhà cung cấp"></div>
+            <div class="date-box">
+                <i class="far fa-calendar-alt"></i>
+                <input type="text" placeholder="Ngày nhập hàng" readonly onclick="toggleCalendar('calFilter')">
+                <div class="custom-calendar" id="calFilter">
+                    <div class="cal-header"><span>December</span> <span>2025</span></div>
+                    <div class="cal-weekdays"><div>S</div><div>M</div><div>T</div><div>W</div><div>T</div><div>F</div><div>S</div></div>
+                    <div class="cal-days"><div class="prev-date">30</div><div>1</div><div>2</div><div>3</div><div>4</div><div class="today">5</div><div>6</div><div>7</div><div>8</div><div>9</div><div>10</div><div>11</div><div>12</div><div>13</div><div>14</div><div>15</div><div>16</div><div>17</div><div>18</div><div>19</div><div>20</div><div class="selected">21</div><div>22</div><div>23</div><div>24</div><div>25</div><div>26</div><div>27</div><div>28</div><div>29</div><div>30</div><div>31</div></div>
+                </div>
+            </div>
+            <button class="btn-add" onclick="window.location.href='nhaphang.html'">+ Thêm đơn đặt</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="main-table">
+                <thead>
+                    <tr><th>Mã đơn đặt</th><th>Mã nhà cung cấp</th><th>Tên nhà cung cấp</th><th>Ngày nhập</th><th>Tổng tiền</th></tr>
+                </thead>
+                <tbody>
+                    <tr onclick="openDetailModal()"><td>DH0000014</td><td>CC0000001</td><td>Công ty TNHH Đạt Minh</td><td>28/11/2025</td><td>2.000.000</td></tr>
+                    <tr onclick="openDetailModal()"><td>DH0000013</td><td>CC0000004</td><td>Công ty Cung Ứng Tạp Hóa Phú Thịnh</td><td>25/11/2025</td><td>500.000</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="detailModal">
+        <div class="detail-modal-content">
+            <div class="detail-header">
+                <span>Chi tiết đặt hàng</span>
+                <span class="detail-close" onclick="closeModal('detailModal')">&times;</span>
+            </div>
+            <div class="detail-body">
+                <div class="detail-info-box">
+                    <div class="info-left">
+                        <div class="info-row"><span class="info-label">Mã đơn đặt:</span> DH0000001</div>
+                        <div class="info-row"><span class="info-label">Ngày đặt hàng:</span> 29/08/2025</div>
+                    </div>
+                    <div class="info-center">
+                        <div class="info-row"><span class="info-label">Mã NCC:</span> CC0000001</div>
+                        <div class="info-row"><span class="info-label">Tên NCC:</span> Công ty TNHH Hòa Phát</div>
+                    </div>
+                    <div class="info-right">
+                        <button class="btn-delete-order" onclick="openDeleteConfirm()">Xóa đơn đặt</button>
+                    </div>
+                </div>
+                <div class="detail-table-wrapper">
+                    <table class="detail-table" style="width: 100%;">
+                        <thead><tr><th>Mã hàng</th><th>Tên hàng hóa</th><th style="text-align: center;">Số lượng</th><th style="text-align: right;">Đơn giá</th><th style="text-align: right;">Thành tiền</th></tr></thead>
+                        <tbody>
+                            <tr><td>HH0000001</td><td>Muối i-ốt gói 500g</td><td style="text-align: center;">2</td><td style="text-align: right;">10.000</td><td style="text-align: right;">20.000</td></tr>
+                            <tr><td>HH0000002</td><td>Dầu ăn hướng dương chai 1L</td><td style="text-align: center;">1</td><td style="text-align: right;">56.000</td><td style="text-align: right;">56.000</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="total-row">Tổng: 231.000</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="deleteConfirmModal">
+        <div class="confirm-modal-content">
+            <div class="icon-warning">!</div>
+            <div class="confirm-title">Bạn có muốn xóa đơn đặt hàng?</div>
+            <div class="confirm-actions">
+                <button class="btn-confirm-cancel" onclick="closeModal('deleteConfirmModal')">Hủy</button>
+                <button class="btn-confirm-ok" onclick="handleDelete()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="validation-toast error" id="errorToast"><div class="val-icon">!</div><div class="val-text">Có lỗi trong quá trình hủy đơn đặt</div></div>
+    <div class="validation-toast success" id="successToast"><div class="val-icon"><i class="fas fa-check"></i></div><div class="val-text">Xóa đơn đặt thành công</div></div>
+
+    <script src="dathang.js"></script>
+</body>
+</html>

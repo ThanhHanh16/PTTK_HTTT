@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý hóa đơn - Tạp hóa Dì Gái</title>
+    <link rel="stylesheet" href="TKHD.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <header class="top-header">
+        <div class="logo">
+            <img src="./logo.png" alt="Logo Tạp Hóa" onerror="this.src='https://via.placeholder.com/80x40?text=DiGai'">
+        </div>
+        
+        <div class="user-menu" onclick="toggleUserDropdown(this)"> 
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-item">
+                    <i class="fas fa-sign-out-alt" style="margin-right: 5px;"></i> Đăng xuất
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html">Trang Chủ</a>
+        <a href="TaoHD.html">Bán Hàng</a>
+        <a href="dathang.html">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>    
+        
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+
+        <a href="ncc.html" class="active"> <u>Nhà Cung Cấp</u></a>
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+    </nav>
+    <main>
+        <div class="filter-container">
+            <div class="filter-group">
+                <label style="font-weight: bold;">Thời gian</label>
+                <div class="date-input"><label for="">Từ ngày </label><input type="date" id="dateFrom" placeholder="Từ ngày"></div>
+                <div class="date-input"><label for="">Đến ngày </label><input type="date" id="dateTo" placeholder="Đến ngày"></div>
+            </div>
+            <div class="search-inputs">
+                <div class="input-with-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchId" placeholder="Tìm theo mã hóa đơn">
+                </div>
+                <div class="input-with-icon">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="searchName" placeholder="Tìm theo tên khách">
+                </div>
+                <button class="btn-search" onclick="handleSearch()">Tìm kiếm</button>
+            </div>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mã hóa đơn</th>
+                        <th>Tên khách hàng</th>
+                        <th>Thời gian</th>
+                        <th>Tổng cộng</th>
+                        <th>Phương thức</th>
+                    </tr>
+                </thead>
+                <tbody id="billTableBody">
+                    </tbody>
+            </table>
+        </div>
+    </main>
+
+    <div id="modalDetail" class="modal">
+        <div class="modal-content detail-modal">
+            <div class="modal-header-detail">
+                <h3>Chi tiết hóa đơn:</h3>
+                <span class="close-detail" onclick="closeModal('modalDetail')">&times;</span>
+            </div>
+            
+            <div class="bill-info-grid">
+                <div class="info-group-col">
+                    <p><strong>Mã hóa đơn:</strong> <span id="dtId"></span></p>
+                    <p><strong>Tên khách hàng:</strong> <span id="dtName"></span></p>
+                    <p><strong>Thời gian:</strong> <span id="dtTime"></span></p>
+                    <p><strong>Phương thức:</strong> <span id="dtMethod"></span></p>
+                </div>
+                <div class="delete-btn-col">
+                    <button class="btn-delete-bill-fixed" onclick="confirmDelete()">Xóa hóa đơn</button>
+                </div>
+            </div>
+
+            <div class="detail-table-container-fixed">
+                <table>
+                    <thead>
+                        <tr>
+                            <th style="width: 15%;">Mã hàng</th>
+                            <th style="width: 40%;">Tên hàng hóa</th>
+                            <th style="width: 15%; text-align: right;">Số lượng</th>
+                            <th style="width: 15%; text-align: right;">Đơn giá</th>
+                            <th style="width: 15%; text-align: right;">Thành tiền</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dtItems"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td colspan="3" class="total-label-padding">Tổng cộng:</td>
+                            <td class="total-value-right" colspan="2"><span id="dtTotal"></span></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalConfirm" class="modal">
+        <div class="modal-content confirm-box">
+            <div class="icon-container">
+                <div class="icon-circle icon-red"><i class="fa-solid fa-exclamation"></i></div>
+            </div>
+            <p class="msg-text" style="font-weight: bold;">Bạn có chắc chắn muốn xóa hóa đơn này không?</p>
+            <div class="btn-group">
+                <button class="btn-cancel" onclick="closeModal('modalConfirm')">Hủy</button>
+                <button class="btn-agree" onclick="executeDelete()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modalAlert" class="modal">
+        <div class="modal-content confirm-box">
+            <div class="icon-container">
+                <div class="icon-circle icon-red"><i class="fa-solid fa-exclamation"></i></div>
+            </div>
+            <p id="alertMsg" class="msg-text" style="font-weight: bold; margin-bottom: 0;"></p>
+        </div>
+    </div>
+
+    <div id="modalSuccess" class="modal success-toast-modal">
+        <div class="modal-content success-box">
+            <i class="fa-solid fa-check icon-success-toast"></i>
+            <p class="msg-success-toast">Xóa hóa đơn thành công</p>
+        </div>
+    </div>
+
+    <script src="TKHD.js"></script>
+</body>
+</html>

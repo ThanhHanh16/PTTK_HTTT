@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Nhà Cung Cấp - Tạp Hóa Di Gái</title>
+    <link rel="stylesheet" href="NCC.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="logo">
+            <img src="./logo.png" alt="Logo Tạp Hóa">
+        </div>
+        
+        <div class="user-menu" onclick="toggleUserDropdown()">
+            <div class="user-info">
+                <i class="far fa-user"></i> Nguyễn Thị Gái <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="user-dropdown" id="userDropdown">
+                <div class="dropdown-item">Đăng xuất</div>
+            </div>
+        </div>
+    </header>
+
+    <nav class="main-nav">
+        <a href="baocao.html">Trang Chủ</a>
+        <a href="TaoHD.html">Bán Hàng</a>
+        <a href="dathang.html">Đặt Hàng</a>
+        <div class="nav-dropdown">
+            <a href="#" class="dropbtn">Sản Phẩm </a>
+            <div class="dropdown-content">
+                <a href="./hanghoa.html">Hàng hóa</a>
+                <a href="./lohang.html">Lô hàng</a>
+            </div>
+        </div>    
+        
+        <a href="./danhmuc.html">Danh Mục</a>
+        <a href="giaban.html">Giá Bán</a>
+
+        <div class="nav-dropdown">
+            <a href="./khachhang.html" class="dropbtn">Khách Hàng </a>
+            <div class="dropdown-content">
+                <a href="./khachhang.html">QL khách hàng</a>
+                <a href="./congno.html">Công nợ</a>
+            </div>
+        </div>
+
+        <a href="ncc.html" class="active"> <u>Nhà Cung Cấp</u></a>
+        <div class="cart-icon" onclick="window.location.href='TaoHD.html'" style="cursor: pointer;">
+            <i class="fas fa-shopping-cart"></i>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="filter-bar">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="searchInput" placeholder="Tìm theo tên nhà cung cấp" onkeypress="if(event.key === 'Enter') handleSearch()">
+            </div>
+            <button class="btn-add" onclick="openAddModal()">+ Thêm nhà cung cấp</button>
+        </div>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width: 15%;">Mã nhà cung cấp</th>
+                        <th style="width: 25%;">Tên nhà cung cấp</th>
+                        <th style="width: 15%;">Số điện thoại</th>
+                        <th style="width: 30%;">Địa chỉ</th>
+                        <th style="width: 10%;">Số tài khoản</th>
+                        <th style="width: 2.5%; text-align: center;">Sửa</th>
+                        <th style="width: 2.5%; text-align: center;">Xóa</th>
+                    </tr>
+                </thead>
+                <tbody id="nccTableBody">
+                    <tr>
+                        <td>NCC0000012</td>
+                        <td>NPP Tổng Hợp Trường Sơn</td>
+                        <td>0914 777 888</td>
+                        <td>168 Hùng Vương, P.5, TP. Đông Hà, Quảng Trị</td>
+                        <td>1013456789</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000012', 'NPP Tổng Hợp Trường Sơn', '0914 777 888', '168 Hùng Vương, P.5, TP. Đông Hà, Quảng Trị', '1013456789')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000013</td>
+                        <td>Đại Lý Bia Rượu Thạch Hãn</td>
+                        <td>0233 3861 234</td>
+                        <td>45 Trần Hưng Đạo, TX. Quảng Trị, Quảng Trị</td>
+                        <td>040012345678</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000013', 'Đại Lý Bia Rượu Thạch Hãn', '0233 3861 234', '45 Trần Hưng Đạo, TX. Quảng Trị, Quảng Trị', '040012345678')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000014</td>
+                        <td>Nông Sản Gio Linh</td>
+                        <td>0982 555 666</td>
+                        <td>QL1A, TT. Gio Linh, H. Gio Linh, Quảng Trị</td>
+                        <td>5401000222333</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000014', 'Nông Sản Gio Linh', '0982 555 666', 'QL1A, TT. Gio Linh, H. Gio Linh, Quảng Trị', '5401000222333')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000015</td>
+                        <td>Hải Sản Cửa Tùng Co.</td>
+                        <td>0905 999 111</td>
+                        <td>Khu phố An Đức, TT. Cửa Tùng, Vĩnh Linh, Quảng Trị</td>
+                        <td>1902888999000</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000015', 'Hải Sản Cửa Tùng Co.', '0905 999 111', 'Khu phố An Đức, TT. Cửa Tùng, Vĩnh Linh, Quảng Trị', '1902888999000')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000016</td>
+                        <td>Cà Phê Khe Sanh Supply</td>
+                        <td>0935 444 333</td>
+                        <td>Khóm 1, TT. Khe Sanh, Hướng Hóa, Quảng Trị</td>
+                        <td>3901234567</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000016', 'Cà Phê Khe Sanh Supply', '0935 444 333', 'Khóm 1, TT. Khe Sanh, Hướng Hóa, Quảng Trị', '3901234567')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000017</td>
+                        <td>Tạp Hóa Sỉ Diên Sanh</td>
+                        <td>0888 123 789</td>
+                        <td>Chợ Diên Sanh, Hải Thọ, Hải Lăng, Quảng Trị</td>
+                        <td>6868999999</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000017', 'Tạp Hóa Sỉ Diên Sanh', '0888 123 789', 'Chợ Diên Sanh, Hải Thọ, Hải Lăng, Quảng Trị', '6868999999')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000018</td>
+                        <td>Dược Phẩm Cam Lộ</td>
+                        <td>0913 222 444</td>
+                        <td>Thôn Phú Hậu, Xã Cam An, Cam Lộ, Quảng Trị</td>
+                        <td>040099887766</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000018', 'Dược Phẩm Cam Lộ', '0913 222 444', 'Thôn Phú Hậu, Xã Cam An, Cam Lộ, Quảng Trị', '040099887766')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000019</td>
+                        <td>VLXD Ái Tử</td>
+                        <td>0945 678 910</td>
+                        <td>QL1A, Xã Triệu Giang, Triệu Phong, Quảng Trị</td>
+                        <td>999000111222</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000019', 'VLXD Ái Tử', '0945 678 910', 'QL1A, Xã Triệu Giang, Triệu Phong, Quảng Trị', '999000111222')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000020</td>
+                        <td>Bánh Kẹo Sepon</td>
+                        <td>0233 3555 999</td>
+                        <td>KCN Nam Đông Hà, P. Đông Lương, Đông Hà, Quảng Trị</td>
+                        <td>777888999000</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000020', 'Bánh Kẹo Sepon', '0233 3555 999', 'KCN Nam Đông Hà, P. Đông Lương, Đông Hà, Quảng Trị', '777888999000')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>NCC0000021</td>
+                        <td>Thương Mại Đakrông</td>
+                        <td>0969 111 222</td>
+                        <td>QL9, TT. Krông Klang, Đakrông, Quảng Trị</td>
+                        <td>123456123456</td>
+                        <td style="text-align: center;">
+                            <button class="action-btn edit" onclick="openEditModal('NCC0000021', 'Thương Mại Đakrông', '0969 111 222', 'QL9, TT. Krông Klang, Đakrông, Quảng Trị', '123456123456')"><i class="fas fa-pen"></i></button>
+                        </td>
+                        <td style="text-align: center;">
+                            <button class="action-btn delete" onclick="openDeleteConfirm()"><i class="fas fa-trash"></i></button>
+                        </td>
+                    </tr>
+              </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="formModal">
+        <div class="modal-content form">
+            <div class="modal-header">
+                <h3 id="modalTitle"></h3>
+                <span class="close-btn" onclick="closeModal('formModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Mã nhà cung cấp:</label>
+                    <input type="text" id="inpMaNCC"> 
+                </div>
+                <div class="form-group">
+                    <label>Tên nhà cung cấp:</label>
+                    <input type="text" id="inpTenNCC" placeholder="Nhập tên nhà cung cấp">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại:</label>
+                    <input type="text" id="inpSDT" placeholder="Nhập số điện thoại">
+                </div>
+                <div class="form-group">
+                    <label>Địa chỉ:</label>
+                    <input type="text" id="inpDiaChi" placeholder="Nhập địa chỉ">
+                </div>
+                <div class="form-group">
+                    <label>Số tài khoản:</label>
+                    <input type="text" id="inpSTK" placeholder="Nhập số tài khoản">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-cancel" onclick="closeModal('formModal')">Hủy</button>
+                <button class="btn-confirm btn-save-confirm" id="btnSave" onclick="handleSaveAction()"></button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="modal-overlay" id="deleteModal">
+        <div class="modal-content text-center">
+            <div class="icon-warning">!</div>
+            <h3>Bạn có muốn xóa nhà cung cấp?</h3> 
+            <div class="modal-footer justify-center">
+                <button class="btn-cancel cancel-delete" onclick="closeModal('deleteModal')">Hủy</button>
+                <button class="btn-confirm agree-delete" onclick="handleDeleteAction()">Đồng ý</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="toast-popup" id="toastError">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text" id="errorText">Có lỗi trong quá trình lưu nhà cung cấp.<br>Vui lòng thử lại sau</div> 
+    </div>
+
+    <div class="toast-popup success" id="toastSuccess">
+        <div class="icon-circle success-bg"><i class="fas fa-check"></i></div>
+        <div class="toast-text" id="successText"></div>
+    </div>
+
+    <div class="toast-popup" id="toastSearchNotFound">
+        <div class="icon-circle error-bg">!</div>
+        <div class="toast-text">Không tìm thấy nhà cung cấp<br>nào phù hợp với điều kiện<br>tìm kiếm</div>
+    </div>
+
+    <script src="NCC.js"></script>
+</body>
+</html>

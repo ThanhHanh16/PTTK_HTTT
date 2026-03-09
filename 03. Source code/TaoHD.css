@@ -1,0 +1,522 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1200px;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    height: 90vh; 
+}
+
+/* --- HEADER NGANG (THANH MÀU XANH) --- */
+.header {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    min-height: 60px;
+}
+
+/* Khu vực Tìm kiếm (LEFT) */
+.search-input-wrapper {
+    display: flex;
+    align-items: center;
+    position: relative;
+    width: 300px; 
+    margin-right: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+/* Icon Dropdown Arrow (cuối input) */
+.search-input-wrapper .dropdown-arrow {
+    position: absolute;
+    right: 10px;
+    color: #888; 
+    cursor: pointer;
+    z-index: 2;
+}
+
+.header-search-input {
+    width: 100%;
+    padding: 10px 35px 10px 15px; 
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
+    outline: none;
+    position: relative;
+    z-index: 1; 
+    background: transparent; 
+    color: #333; 
+}
+
+/* Khu vực Tabs Hóa đơn */
+.tabs {
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+}
+
+.tab {
+    padding: 8px 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-weight: bold;
+    min-width: 100px;
+    background-color: #007bff;
+    color: white;
+    border-radius: 5px 5px 0 0;
+    margin-right: 2px;
+    transition: background-color 0.2s;
+}
+
+.tab.active {
+    background-color: #fff;
+    color: #007bff;
+}
+
+.tab-close {
+    margin-left: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+
+.tab.active .tab-close {
+    color: #dc3545;
+}
+
+.add-tab {
+    padding: 8px;
+    cursor: pointer;
+    color: white;
+    font-size: 1.2em;
+    line-height: 1;
+    margin-left: 5px;
+}
+
+/* Khu vực User Info */
+.user-info {
+    display: flex;
+    align-items: center;
+    color: white;
+    font-weight: bold;
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.user-info i {
+    margin-right: 5px;
+    font-size: 1.5em;
+}
+
+/* --- MAIN CONTENT (NỘI DUNG 70/30) --- */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    height: calc(100% - 60px); 
+    position: relative;
+}
+
+.invoice-content-wrapper {
+    display: none;
+    width: 100%;
+    height: 100%;
+}
+
+.invoice-content-wrapper[data-id="1"] {
+    display: flex;
+}
+
+/* Khung Nội dung chính (BODY - Chia 70/30) */
+.invoice-body {
+    display: flex;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Chi tiết hóa đơn (Phần 70%) */
+.invoice-details {
+    flex: 7; 
+    padding: 20px;
+    border-right: 1px solid #ddd;
+    overflow-y: auto;
+    position: relative;
+    max-width: 70%; 
+}
+
+/* Thanh toán (Phần 30%) */
+.payment-info {
+    flex: 3; 
+    padding: 20px;
+    background-color: #fff;
+    max-width: 30%;
+    overflow-y: auto;
+    display: flex; 
+    flex-direction: column;
+}
+
+/* Dropdown tìm kiếm (Global Search Dropdown) */
+.search-dropdown {
+    position: absolute;
+    top: 100%; 
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 100; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 5px;
+    display: none;
+    margin-top: 5px;
+}
+
+.search-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+}
+
+.search-dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.search-dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+/* Icon Sản phẩm (Mô phỏng ảnh Omo/Ariel) */
+.search-dropdown-item .item-image-icon { 
+    width: 25px;
+    height: 25px;
+    background-color: #dc3545; 
+    background-size: cover;
+    border-radius: 2px;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+/* --- Chi tiết Sản phẩm --- SỬA LẠI BỐ CỤC CỘT */
+.invoice-items {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+}
+
+.invoice-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd; /* Đổi dashed thành solid nhẹ */
+    font-size: 0.9em;
+}
+
+.item-index {
+    width: 25px;
+    text-align: center;
+}
+
+.item-code {
+    width: 80px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.item-name {
+    flex-grow: 1;
+    margin-left: 10px;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    width: 90px;
+    margin: 0 10px;
+    flex-shrink: 0; /* Giữ cố định */
+}
+
+.quantity-btn {
+    padding: 5px 8px;
+    border: 1px solid #ccc;
+    background-color: #f8f8f8;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+    line-height: 1;
+}
+
+.item-qty-display {
+    padding: 5px 5px;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    text-align: center;
+    width: 20px;
+}
+
+.item-price-display { /* Tên class mới cho giá */
+    width: 60px;
+    text-align: right;
+    margin-right: 10px;
+    flex-shrink: 0;
+}
+
+.item-total {
+    width: 60px; /* Nhỏ hơn để nhường chỗ thùng rác */
+    text-align: right;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.item-delete {
+    margin-left: 10px;
+    color: #dc3545;
+    cursor: pointer;
+    font-size: 1.2em;
+    flex-shrink: 0;
+}
+
+
+/* --- Thanh toán và Khách hàng --- */
+
+.customer-input-group {
+    margin-bottom: 15px;
+    position: relative;
+}
+
+.customer-input-wrapper {
+    position: relative;
+}
+
+.customer-input-wrapper .input-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    z-index: 2;
+}
+
+.customer-input-wrapper .dropdown-arrow-customer {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.customer-input {
+    width: 100%;
+    padding: 10px 40px 10px 35px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1em;
+    background-color: #eaf3ff; 
+    color: #000;
+    position: relative;
+    z-index: 1;
+}
+
+/* Customer Dropdown (Below Customer Input) */
+.customer-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    z-index: 5;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-height: 150px;
+    overflow-y: auto;
+    border-radius: 5px; 
+    display: none;
+}
+
+.customer-dropdown-item {
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+}
+
+.customer-dropdown-item i {
+    margin-right: 10px;
+    color: #007bff; 
+}
+
+.customer-dropdown-item:hover {
+    background-color: #f0f0f0;
+}
+
+.payment-summary {
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+#payment-status-no{
+    height: 50px;
+    width: 100px;
+    background-color: #E14848 ;
+    color: #f0f0f0;
+    font-weight: bold;
+    font-size: medium;
+    border-radius: 5px;
+}
+
+#payment-status-yes{
+    height: 50px;
+    width: 100px;
+    background-color: #48E15F ;
+    color: #f0f0f0;
+    font-weight: bold;
+    font-size: medium;
+    border-radius: 5px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 1em;
+    position: relative;
+}
+
+/* Khách trả (Input) */
+.paid-amount-input-display {
+    text-align: right;
+    border: none;
+    outline: none;
+    font-weight: bold;
+    font-size: 1em;
+    padding: 0;
+    margin: 0;
+    background: none;
+    color: #333;
+    width: 100px;
+    flex-shrink: 0;
+}
+
+.payment-method, .debt-option {
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+/* NÚT IN HÓA ĐƠN ĐẨY XUỐNG CUỐI */
+.print-button {
+    margin-top: auto; 
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.2em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    font-weight: bold;
+}
+
+/* Modals */
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    display: none;
+}
+
+
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 400px;
+    width: 90%;
+}
+
+.modal-icon {
+    font-size: 4em; 
+    color: #dc3545;
+    margin-bottom: 15px;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    color: #333;
+    font-weight: bold;
+    font-size: 1.5em; 
+}
+
+.modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+/* ẨN ACTION cho Modal Lỗi Sản phẩm (Ariel) */
+#item-not-found-modal .modal-actions {
+    display: none;
+}
+
+/* Đảm bảo nút trong modal có kiểu dáng đúng */
+.modal-btn {
+    padding: 8px 15px;
+    border: 1px solid #ccc;
+    background: #f8f8f8;
+    border-radius: 3px;
+    cursor: pointer;
+    font-weight: normal;
+    transition: background-color 0.2s;
+    background-color: #f8f8f8; 
+    color: #333;
+}
+
+
+
+.back-btn-circle {
+    width: 40px; height: 40px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}

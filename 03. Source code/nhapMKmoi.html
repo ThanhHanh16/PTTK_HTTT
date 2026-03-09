@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tạo Mật Khẩu Mới</title>
+    <link rel="stylesheet" href="dangnhap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-card idle" id="newPassCard">
+        <div style="text-align: left;">
+            <a href="khoiphucthanhcong.html" class="back-btn-circle">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <h3 style="text-align: left; margin-bottom: 5px; color: #333;">Tạo mật khẩu mới</h3>
+        <p style="text-align: left; color: #888; margin-bottom: 20px; font-size: 14px;">
+            Hãy nhập lại mật khẩu mới
+        </p>
+
+        <div class="form-group">
+            <label>Nhập mật khẩu mới</label>
+            <input type="password" id="newPass" placeholder="Nhập mật khẩu mới" disabled>
+        </div>
+
+        <div class="form-group">
+            <label>Xác nhận mật khẩu mới</label>
+            <input type="password" id="confirmPass" placeholder="Xác nhận mật khẩu" disabled>
+        </div>
+
+        <button class="btn-login btn-recover" onclick="handleUpdate(event)">
+            Cập nhật mật khẩu
+        </button>
+    </div>
+
+    <script>
+        let isIdle = true;
+
+        // 1. CLICK MÀN HÌNH -> MỞ KHÓA (MÀN 3)
+        document.addEventListener('click', function() {
+            if (isIdle) {
+                isIdle = false;
+                
+                const card = document.getElementById('newPassCard');
+                const inp1 = document.getElementById('newPass');
+                const inp2 = document.getElementById('confirmPass');
+
+                // Xóa mờ
+                card.classList.remove('idle');
+
+                // Mở khóa input
+                inp1.disabled = false;
+                inp2.disabled = false;
+                
+                // Focus vào ô đầu tiên
+                inp1.focus();
+            }
+        });
+
+        // 2. BẤM CẬP NHẬT -> QUA MÀN HÌNH 4
+        function handleUpdate(event) {
+            event.stopPropagation();
+
+            const p1 = document.getElementById('newPass').value;
+            const p2 = document.getElementById('confirmPass').value;
+
+            // Kiểm tra đơn giản (không rỗng)
+            if (p1 !== "" && p2 !== "") {
+                // Chuyển sang màn hình thông báo thành công cuối cùng
+                window.location.href = "doiMKthanhcong.html";
+            }
+        }
+    </script>
+</body>
+</html>

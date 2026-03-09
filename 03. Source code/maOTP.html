@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kiểm tra OTP</title>
+    <link rel="stylesheet" href="dangnhap.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="login-card idle" id="otpCard">
+        <div style="text-align: left;">
+            <a href="quenmatkhau.html" class="back-btn-circle">
+                <i class="fas fa-chevron-left"></i>
+            </a>
+        </div>
+
+        <div class="logo">
+            <img src="logo.png" alt="Logo">
+        </div>
+
+        <h3 style="text-align: left; margin-bottom: 5px; color: #333;">Kiểm tra số điện thoại</h3>
+        <p style="text-align: left; color: #888; margin-bottom: 20px; font-size: 14px; line-height: 1.5;">
+            Chúng tôi vừa gửi mã OTP gồm 5 kí tự đến số điện thoại của bạn.<br>
+            Vui lòng kiểm tra SMS.
+        </p>
+
+        <div class="otp-container">
+            <input type="text" class="otp-input" maxlength="1" disabled oninput="moveToNext(this, 'otp2')">
+            <input type="text" class="otp-input" id="otp2" maxlength="1" disabled oninput="moveToNext(this, 'otp3')">
+            <input type="text" class="otp-input" id="otp3" maxlength="1" disabled oninput="moveToNext(this, 'otp4')">
+            <input type="text" class="otp-input" id="otp4" maxlength="1" disabled oninput="moveToNext(this, 'otp5')">
+            <input type="text" class="otp-input" id="otp5" maxlength="1" disabled>
+        </div>
+
+        <button class="btn-login btn-continue" onclick="handleVerify(event)">
+            Tiếp tục
+        </button>
+    </div>
+
+    <div class="overlay" id="errorPopup" onclick="closeError()">
+        <div class="error-box">
+            <div class="icon-error orange">!</div>
+            <div class="text-error">
+                Mã OTP không hợp lệ
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isIdle = true;
+        let attemptCount = 0; 
+
+        // 1. SỰ KIỆN CLICK MÀN HÌNH -> MỞ KHÓA
+        document.addEventListener('click', function() {
+            if (isIdle) {
+                isIdle = false;
+                
+                const card = document.getElementById('otpCard');
+                const inputs = document.querySelectorAll('.otp-input');
+
+                // Xóa mờ
+                card.classList.remove('idle');
+
+                // Mở khóa tất cả ô input
+                inputs.forEach(input => input.disabled = false);
+                
+                // Focus vào ô đầu tiên
+                inputs[0].focus();
+            }
+        });
+
+        // 2. LOGIC TỰ ĐỘNG NHẢY Ô KHI NHẬP SỐ
+        function moveToNext(current, nextFieldID) {
+            if (current.value.length >= 1) {
+                document.getElementById(nextFieldID).focus();
+            }
+        }
+
+        // 3. SỰ KIỆN BẤM NÚT TIẾP TỤC
+        function handleVerify(event) {
+            event.stopPropagation(); // Ngăn click lan ra ngoài
+
+            // Kiểm tra xem đã nhập đủ 5 số chưa (đơn giản hóa)
+            const inputs = document.querySelectorAll('.otp-input');
+            let isFilled = true;
+            inputs.forEach(inp => { if(inp.value === "") isFilled = false; });
+
+            if (isFilled) {
+                if (attemptCount === 0) {
+                    // --- LẦN 1: BÁO LỖI (Màn hình 4) ---
+                    const popup = document.getElementById('errorPopup');
+                    popup.style.display = 'flex';
+
+                    // Tự tắt sau 800ms
+                    setTimeout(() => {
+                        popup.style.display = 'none';
+                        // Xóa mã cũ để nhập lại
+                        inputs.forEach(inp => inp.value = "");
+                        inputs[0].focus();
+                    }, 800);
+
+                    attemptCount++;
+                } else {
+                    // --- LẦN 2: THÀNH CÔNG -> QUA MÀN HÌNH 6 ---
+                    window.location.href = "khoiphucthanhcong.html";
+                }
+            }
+        }
+
+        function closeError() {
+            document.getElementById('errorPopup').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

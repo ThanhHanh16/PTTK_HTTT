@@ -1,0 +1,174 @@
+/* style.css */
+body {
+    margin: 0; padding: 0;
+    background-color: #f5f5f5;
+    font-family: 'Arial', sans-serif;
+    display: flex; justify-content: center; align-items: center;
+    height: 100vh;
+}
+
+/* --- KHUNG ĐĂNG NHẬP --- */
+.login-card {
+    background: white; width: 450px; padding: 40px;
+    border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: center; border: 1px solid #ddd;
+    transition: all 0.3s ease;
+}
+.logo img { height: 140px; margin-bottom: 20px; }
+
+/* --- INPUT --- */
+.form-group { text-align: left; margin-bottom: 20px; }
+.form-group label { font-weight: bold; color: #666; display: block; margin-bottom: 8px; }
+.form-group input {
+    width: 100%; padding: 12px;
+    border: 1px solid #ccc; border-radius: 8px;
+    font-size: 16px; outline: none; box-sizing: border-box;
+    transition: 0.3s;
+}
+.form-group input:focus { border-color: #007bff; background: white; }
+
+/* --- TRẠNG THÁI CHỜ (Màn hình 1 - Bị khóa) --- */
+.login-card.idle .btn-login { opacity: 0.3; background-color: #007bff; pointer-events: none; }
+.login-card.idle input { background-color: #f9f9f9; color: #999; cursor: default; }
+
+/* --- NÚT ĐĂNG NHẬP --- */
+.btn-login {
+    width: 100%; padding: 12px;
+    background-color: #007bff; color: white;
+    border: none; border-radius: 8px;
+    font-size: 18px; font-weight: bold;
+    cursor: pointer; transition: 0.3s; opacity: 1;
+}
+.btn-login:hover { background-color: #0056b3; }
+
+/* --- POPUP LỖI (Giống hình bạn gửi) --- */
+.overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); /* Nền đen mờ */
+    display: none; /* Ẩn mặc định */
+    justify-content: center; align-items: center;
+    z-index: 1000;
+}
+
+.error-box {
+    background: white;
+    padding: 40px 30px;
+    border-radius: 20px; /* Bo tròn nhiều hơn giống hình */
+    text-align: center;
+    width: 380px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: popIn 0.3s ease-out;
+}
+
+.icon-error {
+    width: 80px; height: 80px;
+    background: #ea4335; /* Màu đỏ cam */
+    color: white;
+    font-size: 50px; font-weight: bold;
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    margin: 0 auto 20px; /* Căn giữa */
+}
+
+.text-error {
+    font-size: 20px;
+    color: #000;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+@keyframes popIn {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* --- DASHBOARD --- */
+.dashboard-actions { display: flex; gap: 20px; justify-content: center; margin-top: 30px; }
+.btn-dash { width: 180px; height: 100px; color: white; font-size: 20px; font-weight: bold; border: none; border-radius: 10px; cursor: pointer; }
+.btn-blue { background: #007bff; }
+.btn-green { background: #32c850; }
+
+
+
+/* Popup Lỗi màu Cam (Cho trang Quên mật khẩu) */
+.icon-error.orange {
+    background: #f44336; /* Màu cam đỏ giống hình */
+    color: white;
+    font-family: Arial, sans-serif; /* Font dấu chấm than đơn giản */
+}
+
+/* Nút quay lại (Mũi tên nhỏ) */
+.back-btn-circle {
+    width: 40px; height: 40px;
+    background: #f0f0f0;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: #333;
+    text-decoration: none;
+    margin-bottom: 20px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.back-btn-circle:hover { background: #e0e0e0; }
+
+/* Định dạng riêng cho nút Khôi phục (Màu xanh nhạt hơn chút nếu muốn giống hình) */
+.btn-recover {
+    background-color: #007bff; /* Xanh nhạt giống hình mẫu */
+}
+.btn-recover:hover { background-color: #42a5f5; }
+
+
+
+/* OTP CONTAINER */
+.otp-container {
+    display: flex;
+    justify-content: center;
+    gap: 15px; /* Khoảng cách giữa các ô */
+    margin: 30px 0;
+}
+
+/* 5 Ô VUÔNG NHẬP SỐ */
+.otp-input {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #007bff; /* Viền xanh dương */
+    border-radius: 8px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    outline: none;
+    background: white;
+}
+.otp-input:focus {
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background: #f0f8ff;
+}
+
+/* TRẠNG THÁI CHỜ CHO OTP (MỜ ĐI) */
+.login-card.idle .otp-input {
+    border-color: #ccc;
+    background: #f9f9f9;
+    color: #ccc;
+}
+
+/* NÚT TIẾP TỤC (Màu xanh nhạt hơn) */
+.btn-continue {
+    background-color: #007bff; /* Xanh nhạt giống hình */
+    color: white;
+}
+.btn-continue:hover {
+    background-color: #007bff;
+}
+
+
+/* Icon Success (Dấu tích xanh nền nhạt) */
+.icon-success-circle {
+    width: 80px; height: 80px;
+    background-color: #e3f2fd; /* Nền xanh rất nhạt */
+    color: #007bff;            /* Dấu tích màu xanh dương */
+    border-radius: 50%;
+    display: flex; justify-content: center; align-items: center;
+    font-size: 40px;
+    margin: 0 auto 20px;
+}
